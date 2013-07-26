@@ -88,3 +88,16 @@ def guardar_matriz_3d_espiral(N):
     for i in range(filas):
         resultado1.append(guardar_matriz_espiral(N[i]))
     return reduce(lambda x,y: x+y,resultado1)
+
+def hermitiana_1D(x, n):
+    resultado1 = lagrangiana_1D(x, n)
+    resultado2 = []
+    puntos2 = np.linspace(-1, 1, n)
+    for i in range(np.size(puntos2)):
+        A = x - puntos2[i]
+        B = (resultado1[i].diff(x)).subs(x, puntos2[i])
+        C = resultado1[i]**2
+        D = (1 - (A*B))*C
+        resultado2.append(expand(D))
+        resultado2.append(expand(A*C))
+    return resultado2
